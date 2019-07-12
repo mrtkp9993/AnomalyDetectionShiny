@@ -4,6 +4,9 @@ library(shinythemes)
 shinyUI(fluidPage(
   theme = shinytheme("flatly"),
   titlePanel("Anomaly Detection"),
+  hr(),
+  tags$a(href = "https://github.com/mrtkp9993/AnomalyDetectionShiny", 
+         "For usage info, please click here."),
   sidebarLayout(
     sidebarPanel(
       fileInput(
