@@ -1,5 +1,9 @@
 # AnomalyDetectionShiny
 
+# Usage
+
+![Usage](usage.gif)
+
 # To-Do
 
 - [] Edit error messages
