@@ -50,7 +50,7 @@ shinyServer(function(input, output, session) {
   
   output$anomalies <- renderPlot({
     ts_data <- make_ts()
-    anom_data <<- AnomalyDetectionVec(
+    anom_data <- AnomalyDetectionVec(
       x = as.vector(ts_data),
       max_anoms = 0.02,
       period = as.integer(input$freq),

@@ -20,7 +20,7 @@ shinyUI(fluidPage(
       ),
       checkboxInput("headers", "Headers?"),
       dateInput("startDate", "Start Date"),
-      selectInput("freq", "Frequency", as.list(c(1, 4, 12, 52))),
+      selectInput("freq", "Frequency", as.list(c(1, 4, 12, 52, 365))),
       selectInput("dateCol", "Date Column", ""),
       selectInput("dataCol", "Data Column", "")
       
