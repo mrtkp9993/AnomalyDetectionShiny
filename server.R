@@ -12,7 +12,7 @@ shinyServer(function(input, output, session) {
     return(ts_data)
   })
   
-  output$table <- renderTable({
+  output$dataTable <- renderTable({
     data_raw <- dataInput()
     dataCol <- input$dataCol
     dateCol <- input$dateCol
@@ -50,13 +50,18 @@ shinyServer(function(input, output, session) {
   
   output$anomalies <- renderPlot({
     ts_data <- make_ts()
-    anom_data <- AnomalyDetectionVec(
+    anom_data <<- AnomalyDetectionVec(
       x = as.vector(ts_data),
       max_anoms = 0.02,
-      period = as.integer(input$freq),
       direction = 'both',
+      alpha = 0.01,
+      period = as.integer(input$freq),
       plot = T
     )
     return(anom_data$plot)
+  })
+  
+  output$anomalyTable <- renderTable({
+    return(anom_data$anoms)
   })
 })
