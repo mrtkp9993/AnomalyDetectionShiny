@@ -12,12 +12,23 @@ shinyServer(function(input, output, session) {
     return(ts_data)
   })
   
-  output$dataTable <- renderTable({
-    data_raw <- dataInput()
-    dataCol <- input$dataCol
+  getDateFromInput <- reactive({
+    data <- dataInput()
     dateCol <- input$dateCol
-    data <- pull(data_raw, dataCol)
-    date <- pull(data_raw, dateCol)
+    date <- pull(data, dateCol)
+    return(date)
+  })
+  
+  getDataFromInput <- reactive({
+    data <- dataInput()
+    dataCol <- input$dataCol
+    data <- pull(data, dataCol)
+    return(data)
+  })
+  
+  output$dataTable <- renderTable({
+    date <- getDateFromInput()
+    data <- getDataFromInput()
     return(head(data.frame(date, data)))
   })
   
@@ -30,13 +41,9 @@ shinyServer(function(input, output, session) {
   })
   
   make_ts <- reactive({
-    data_raw <- dataInput()
-    dataCol <- input$dataCol
-    dateCol <- input$dateCol
+    data <- getDataFromInput()
     startDate <- input$startDate
     freq <- input$freq
-    data <- pull(data_raw, dataCol)
-    date <- pull(data_raw, dateCol)
     ts_data <- ts(data,
                   start = startDate,
                   frequency = as.integer(freq))
@@ -48,9 +55,9 @@ shinyServer(function(input, output, session) {
     return(plot(stl(ts_data, "periodic")))
   })
   
-  output$anomalies <- renderPlot({
+  findAnomalies <- reactive({
     ts_data <- make_ts()
-    anom_data <<- AnomalyDetectionVec(
+    anom_data <- AnomalyDetectionVec(
       x = as.vector(ts_data),
       max_anoms = 0.02,
       direction = 'both',
@@ -58,10 +65,16 @@ shinyServer(function(input, output, session) {
       period = as.integer(input$freq),
       plot = T
     )
-    return(anom_data$plot)
+    return(anom_data)
+  })
+  
+  output$anomalies <- renderPlot({
+    anomalies <- findAnomalies()
+    return(anomalies$plot)
   })
   
   output$anomalyTable <- renderTable({
-    return(anom_data$anoms)
+    anomalies <- findAnomalies()
+    return(anomalies$anoms)
   })
 })
