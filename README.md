@@ -1,6 +1,6 @@
 # AnomalyDetectionShiny
 
-# Usage
+## Usage
 
 ![Usage](usage.gif)
 
@@ -15,7 +15,8 @@
 
 4. Choose timestamp, datetime, ... column and data column.
 
-# To-Do
+## FAQ
 
-- [] Edit error messages
-- [] Support more file formats/seperators/date-time formats,...
+> There is no graph on anomaly detection tab.
+
+> > If there is no anomaly detected on data, app doesn't plot.
