@@ -44,6 +44,25 @@ shinyUI(fluidPage(
         selectInput("dataCol", "Data Column", "")
       ),
       tabPanel(
+        "Anomaly Detection Settings",
+        br(),
+        sliderInput(
+          "max_anoms",
+          "Maximum number of anomalies as a percentage of the data",
+          0,
+          0.49,
+          0.02
+        ),
+        selectInput(
+          "direction",
+          "Directionality of the anomalies to be detected",
+          as.list(c("pos", "neg", "both"))
+        ),
+        selectInput("alpha",
+                    "Level of statistical significance ",
+                    as.list(c(0.01, 0.05, 0.1)))
+      ),
+      tabPanel(
         "Usage",
         br(),
         a(href = "https://github.com/mrtkp9993/AnomalyDetectionShiny",

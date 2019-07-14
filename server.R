@@ -60,9 +60,9 @@ shinyServer(function(input, output, session) {
     ts_data <- make_ts()
     anom_data <- AnomalyDetectionVec(
       x = as.vector(ts_data),
-      max_anoms = 0.02,
-      direction = 'both',
-      alpha = 0.01,
+      max_anoms = as.double(input$max_anoms),
+      direction = input$direction,
+      alpha = as.double(input$alpha),
       period = as.integer(input$freq),
       e_value = T,
       plot = T
