@@ -19,4 +19,4 @@
 
 > There is no graph on anomaly detection tab.
 
-> > If there is no anomaly detected on data, app doesn't plot.
+If there is no anomaly detected on data, app doesn't plot.
