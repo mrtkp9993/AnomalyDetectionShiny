@@ -1,3 +1,4 @@
+library(DT)
 library(shiny)
 library(shinycssloaders)
 library(shinythemes)
@@ -55,7 +56,7 @@ shinyUI(fluidPage(
       type = "tabs",
       tabPanel("Data",
                br(),
-               tableOutput("dataTable")),
+               DT::dataTableOutput("dataTable")),
       tabPanel("STL Decomposition",
                br(),
                withSpinner(plotOutput("decomp", height = "500px"))),
@@ -64,7 +65,9 @@ shinyUI(fluidPage(
         br(),
         withSpinner(plotOutput("anomalies", height = "500px")),
         br(),
-        tableOutput("anomalyTable")
+        h4("Anormal Points"),
+        br(),
+        DT::dataTableOutput("anomalyTable")
       )
     )
   ))

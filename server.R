@@ -1,4 +1,5 @@
 library(AnomalyDetection)
+library(DT)
 library(readr)
 library(shiny)
 library(tibbletime)
@@ -26,10 +27,10 @@ shinyServer(function(input, output, session) {
     return(data)
   })
   
-  output$dataTable <- renderTable({
+  output$dataTable <- DT::renderDataTable({
     date <- getDateFromInput()
     data <- getDataFromInput()
-    return(head(data.frame(date, data)))
+    return(data.frame(date, data))
   })
   
   observeEvent(dataInput(), {
@@ -63,6 +64,7 @@ shinyServer(function(input, output, session) {
       direction = 'both',
       alpha = 0.01,
       period = as.integer(input$freq),
+      e_value = T,
       plot = T
     )
     return(anom_data)
@@ -73,7 +75,7 @@ shinyServer(function(input, output, session) {
     return(anomalies$plot)
   })
   
-  output$anomalyTable <- renderTable({
+  output$anomalyTable <- DT::renderDataTable({
     anomalies <- findAnomalies()
     return(anomalies$anoms)
   })
