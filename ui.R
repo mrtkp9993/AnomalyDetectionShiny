@@ -65,8 +65,23 @@ shinyUI(fluidPage(
       tabPanel(
         "Usage",
         br(),
-        a(href = "https://github.com/mrtkp9993/AnomalyDetectionShiny",
-          "For usage info, please click here.")
+        tags$ol(
+          tags$li("Load csv file. Seperator must be comma (,)."), 
+          tags$li("If your contains a header, please check Headers?."),
+          tags$li("Choose observation frequency: 1 for annualy, 4 for quarterly, 12 for montly, 52 for weekly, 365 for daily."),
+          tags$li("Choose date column and data column.")
+        ),
+        br(),
+        p(
+          h5("If you have suggestions, please send them to"),
+          em("mkoptur3@gmail.com"),
+          h5("and if you like this project, please give a star on GitHub: ")
+        ),
+        tags$a(
+          href = "https://github.com/mrtkp9993",
+          target = "_blank",
+          class = "fa fa-github"
+        )
       )
     )
   ),
